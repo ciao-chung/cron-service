@@ -1,7 +1,9 @@
 import shelljs from 'shelljs'
+import Notify from 'Modules/Notify'
 class Command {
   constructor(config) {
     this.config = config
+    this.notify = Notify(config)
   }
 
   async execute() {
@@ -16,15 +18,16 @@ class Command {
       }
       if(command.cwd) execConfig.cwd = command.cwd
       if(command.description) log(command.description)
-      await this._execAsync(command.command, execConfig)
+      await this._execAsync(`${command.command}`, execConfig)
     }
-
   }
 
   _execAsync(command, options = {}) {
-    return new Promise(function(resolve, reject) {
-      shelljs.exec(command, options, function(code, stdout, stderr) {
-        if (code != 0) return reject(new Error(stderr))
+    const self = this
+    return new Promise((resolve, reject) => {
+      shelljs.exec(command, options, async(code, stdout, stderr) => {
+        await self.notify.send(code, stdout, stderr)
+        if(code != 0) return reject(new Error(stderr))
         return resolve(stdout)
       })
     })

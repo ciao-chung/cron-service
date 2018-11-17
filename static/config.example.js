@@ -1,7 +1,7 @@
 export default {
   runAtStart: true,
   cron: {
-    rule: '*/60 * * * * *',
+    rule: '*/20 * * * * *',
   },
   commands: [
     {
@@ -17,7 +17,7 @@ export default {
       description: 'go into project',
     },
     {
-      command: 'cd ../; rm -rf foobar',
+      command: 'rm -rf foobar',
       description: 'delete project',
     },
   ],

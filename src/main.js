@@ -15,8 +15,8 @@ class App {
     this.command = Command(config)
     console.log(chalk.cyan('App start...'))
 
-    this.Job = new CronJob(this.config.cron.rule, () => this.start())
-    this.Job.start()
+    this.job = new CronJob(this.config.cron.rule, () => this.start())
+    this.job.start()
 
     if(this.config.runAtStart) this.start()
   }

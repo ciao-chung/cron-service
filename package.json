@@ -52,6 +52,7 @@
     "not ie <= 8"
   ],
   "dependencies": {
+    "moment": "^2.22.2",
     "yargs": "^11.0.0"
   }
 }

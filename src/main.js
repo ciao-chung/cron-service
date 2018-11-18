@@ -2,7 +2,7 @@ import chalk from 'chalk'
 import moment from 'moment'
 import 'shelljs/global'
 import { CronJob } from 'cron'
-import config from 'static/config.example'
+import config from 'static/config.js'
 import Command from 'Modules/Command'
 class App {
   constructor() {

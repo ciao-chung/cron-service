@@ -1,4 +1,5 @@
 export default {
+  name: 'Some Cron Job',
   runAtStart: true,
   cron: {
     rule: '*/20 * * * * *',
@@ -24,7 +25,7 @@ export default {
   drivers: {
     line: {
       data: {
-        token: '',
+        token: 'line_token',
       },
     },
   },

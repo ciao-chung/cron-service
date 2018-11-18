@@ -2,7 +2,7 @@ export default {
   name: 'Some Cron Job',
   runAtStart: true,
   cron: {
-    rule: '*/20 * * * * *',
+    rule: '*/60 * * * * *',
   },
   commands: [
     {
@@ -24,8 +24,16 @@ export default {
   ],
   drivers: {
     line: {
-      data: {
+      config: {
         token: 'line_token',
+      },
+    },
+    email: {
+      config: {
+        username: 'username',
+        password: 'password',
+        from: 'foo@bar.com',
+        to: 'target1@foobar.com,target2@foobar.com',
       },
     },
   },

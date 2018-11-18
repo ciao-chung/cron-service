@@ -1,4 +1,5 @@
 import LineNotify from 'Modules/NotifyDrivers/LineNotify.js'
+import EmailNotify from 'Modules/NotifyDrivers/EmailNotify.js'
 class Notify {
   constructor(config) {
     this.config = config
@@ -8,6 +9,7 @@ class Notify {
   async init() {
     this.drivers = {
       line: LineNotify(),
+      email: EmailNotify(),
     }
   }
 

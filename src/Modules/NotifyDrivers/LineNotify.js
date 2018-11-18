@@ -24,7 +24,8 @@ class LineNotify extends BaseNotifyDriver{
   }
 
   _getContent(title, command) {
-    let content =  `\nJob: ${title}(${command.type})\n`
+    let content = `${title} - ${command.description} - ${command.type}\n\n`
+    content += `${command.log}`
     return content
   }
 }

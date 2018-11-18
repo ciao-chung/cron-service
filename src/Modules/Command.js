@@ -37,14 +37,12 @@ class Command {
           return reject({
             type: 'error',
             log: stderr,
-            time: now(),
           })
         }
 
         return resolve({
           type: 'success',
           log: stdout,
-          time: now(),
         })
       })
     })

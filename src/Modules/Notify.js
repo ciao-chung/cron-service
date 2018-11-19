@@ -8,14 +8,21 @@ class Notify {
 
   async init() {
     this.drivers = {
-      line: LineNotify(),
-      email: EmailNotify(),
+      line: LineNotify(this.config.notifyDrivers.line),
+      email: EmailNotify(this.config.notifyDrivers.email),
     }
   }
 
-  async send(result) {
-    for(const driverName in this.config.drivers) {
-      await this.drivers[driverName].send(this.config.name, result)
+  async send(jobConfig, result) {
+    for(const driverName of jobConfig.notify) {
+      const driver = this.drivers[driverName]
+
+      if(!driver) {
+        log(`Notify driver ${driverName} config not found`, 'red')
+        return
+      }
+
+      await driver.send(jobConfig.name, result)
     }
   }
 }

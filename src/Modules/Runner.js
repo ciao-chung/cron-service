@@ -1,24 +1,32 @@
 import shelljs from 'shelljs'
 import Notify from 'Modules/Notify'
-class Command {
+class Runner {
   constructor(config) {
     this.config = config
     this.notify = Notify(config)
+    this.onProcess = {}
     this.result = []
+    
   }
 
-  async execute() {
-    if(!Array.isArray(this.config.commands)) {
+  async execute(jobName, jobConfig) {
+    if(this.onProcess[jobName]) {
+      log(`Skip job [${jobConfig.name}], cuz it's still process. \t\tat ${now()}`, 'red')
+      return
+    }
+    this.onProcess[jobName] = true
+
+    if(!Array.isArray(jobConfig.commands)) {
       log('commands property in config.js must be array type', 'red')
       return
     }
 
-    for(const command of this.config.commands) {
+    for(const command of jobConfig.commands) {
       let execConfig = {
         async: true,
       }
       if(command.cwd) execConfig.cwd = command.cwd
-      if(command.description) log(command.description)
+      if(command.description) log(`[Running] ${command.description}`)
       let result = await this._execAsync(`${command.command}`, execConfig)
       result.cwd = command.cwd
       result.command = command.command
@@ -26,7 +34,9 @@ class Command {
       this.result.push(result)
     }
 
-    this.notify.send(this.result)
+    this.notify.send(jobConfig, this.result)
+    this.result = []
+    delete this.onProcess[jobName]
   }
 
   _execAsync(command, options = {}) {
@@ -49,4 +59,4 @@ class Command {
   }
 }
 
-export default config => new Command(config)
+export default config => new Runner(config)

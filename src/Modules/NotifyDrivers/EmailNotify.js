@@ -2,7 +2,7 @@ import BaseNotifyDriver from 'Modules/NotifyDrivers/BaseNotifyDriver.js'
 import nodemailer from 'nodemailer'
 class EmailNotify extends BaseNotifyDriver{
   async send(title, result) {
-    this.mailConfig = this.config.drivers.email.config
+    this.mailConfig = this.driverConfig.config
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -15,8 +15,8 @@ class EmailNotify extends BaseNotifyDriver{
     const sendConfig = {
       from: this.mailConfig.from,
       to: this.mailConfig.to,
-      subject: this.config.name,
-      html: this._getContent(result),
+      subject: title,
+      html: this._getContent(title, result),
     }
 
     await this._setMail(transporter, sendConfig)
@@ -27,17 +27,18 @@ class EmailNotify extends BaseNotifyDriver{
       transporter.sendMail(sendConfig, (error, info) => {
         if(error) {
           log(error, 'red')
+          log('[Notify] Send mail fail', 'red')
           return reject(error)
         }
 
-        log('send mail successfully', 'green')
+        log('[Notify] Send mail successfully', 'green')
         resolve()
       })
     })
   }
 
-  _getContent(result) {
-    let content = `<h1>${this.config.name}</h1><br><br>`
+  _getContent(title, result) {
+    let content = `<h1>${title}</h1><br><br>`
     for(const command of result) {
       content += `<div><h3>${command.description}</h3></div><br>`
       content += `<div><strong>type</strong></div></div><div>${command.type}</div><br>`

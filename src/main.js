@@ -3,7 +3,7 @@ import moment from 'moment'
 import 'shelljs/global'
 import { CronJob } from 'cron'
 import config from 'static/config.js'
-import Command from 'Modules/Command'
+import Runner from 'Modules/Runner'
 class App {
   constructor() {
     global.chalk = chalk
@@ -12,13 +12,17 @@ class App {
     global.config = config
 
     this.config = config
-    this.command = Command(config)
-    console.log(chalk.cyan('App start...'))
+    this.runner = Runner(this.config)
 
-    this.job = new CronJob(this.config.cron.rule, () => this.start())
-    this.job.start()
+    console.log(chalk.cyan(`App start... \t ${now()}`))
 
-    if(this.config.runAtStart) this.start()
+    for(const jobName in this.config.jobs) {
+      const jobConfig = this.config.jobs[jobName]
+      const job = new CronJob(jobConfig.schedule, () => this.startJob(jobName, jobConfig))
+      job.start()
+
+      if(jobConfig.runAtStart) this.startJob(jobName, jobConfig)
+    }
   }
 
   /**
@@ -32,9 +36,9 @@ class App {
     return moment(new Date).format('YYYY-MM-DD HH:mm:ss')
   }
 
-  async start() {
-    await this.command.execute()
-    console.log(chalk.cyan(new Date()))
+  async startJob(jobName, jobConfig) {
+    log(`[Cron Service] Runner execute ${jobConfig.name} \t\tat ${now()}`)
+    this.runner.execute(jobName, jobConfig)
   }
 }
 

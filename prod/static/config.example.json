@@ -31,6 +31,8 @@
     },
     "email": {
       "transporter": {
+        "port": 587,
+        "host": "smtp.gmail.com",
         "username": "foo@bar.com",
         "password": "password"
       },

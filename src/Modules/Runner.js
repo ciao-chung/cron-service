@@ -43,7 +43,7 @@ class Runner {
     return new Promise((resolve, reject) => {
       shelljs.exec(command, options, async(code, stdout, stderr) => {
         if(code != 0) {
-          new Error(stderr)
+          log(stderr, 'red')
           return reject({
             type: 'error',
             log: stderr,

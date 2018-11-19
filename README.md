@@ -119,7 +119,7 @@ node app.js
 
 > Line is a popular chat application in asia which like WhatsApp in west countries.
 
-To create access token see [offical documentation](https://notify-bot.line.me/doc)
+To create access token see [offical documentation](https://notify-bot.line.me/doc/en/)
 
 - token: String, access token of line notify api.
 

@@ -32,7 +32,7 @@ cd cron-service/prod; yarn
 **Create and setup service config**
 
 ```bash
-cp static/cofnig.example.json static/cofnig.json
+cp static/config.example.json static/config.json
 ```
 
 **Start service**

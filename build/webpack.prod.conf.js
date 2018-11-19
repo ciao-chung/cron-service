@@ -5,7 +5,8 @@ const config = require('../config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const WebpackShellPlugin = require('webpack-shell-plugin');
+const WebpackShellPlugin = require('webpack-shell-plugin')
+const projectRoot = path.resolve(__dirname, '../')
 const argv = require('yargs').argv
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -65,8 +66,13 @@ if (config.build.bundleAnalyzerReport) {
 // production mode, copy bundled app to prod folder
 if(argv.prod) {
   webpackConfig.plugins.push(new WebpackShellPlugin({
+    onBuildStart: [
+      `rm -rf ${path.resolve(projectRoot, 'prod/static')}`,
+    ],
     onBuildEnd: [
+      'rm dist/static/config.json',
       'cp dist/app.js prod',
+      'cp -r dist/static prod',
     ],
   }))
 

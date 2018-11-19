@@ -1,7 +1,7 @@
 import BaseNotifyDriver from 'Modules/NotifyDrivers/BaseNotifyDriver.js'
 class LineNotify extends BaseNotifyDriver{
   async send(title, result) {
-    this.token = this.driverConfig.config.token
+    this.token = this.driverConfig.token
 
     for(const command of result) {
       try {

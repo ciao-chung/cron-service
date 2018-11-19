@@ -1,15 +1,15 @@
 import chalk from 'chalk'
 import moment from 'moment'
+import { readFileSync } from 'fs'
 import 'shelljs/global'
 import { CronJob } from 'cron'
-import config from 'static/config.js'
 import Runner from 'Modules/Runner'
 class App {
   constructor() {
     global.chalk = chalk
     global.log = this.log
     global.now = this.now
-    global.config = config
+    global.config = JSON.parse(readFileSync('static/config.json', 'utf8'))
 
     this.config = config
     this.runner = Runner(this.config)

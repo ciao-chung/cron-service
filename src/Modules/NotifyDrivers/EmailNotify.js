@@ -2,19 +2,18 @@ import BaseNotifyDriver from 'Modules/NotifyDrivers/BaseNotifyDriver.js'
 import nodemailer from 'nodemailer'
 class EmailNotify extends BaseNotifyDriver{
   async send(title, result) {
-    this.mailConfig = this.driverConfig.config
-
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      port: this.driverConfig.transporter.port,
+      host: this.driverConfig.transporter.host,
       auth: {
-        user: this.mailConfig.username,
-        pass: this.mailConfig.password,
+        user: this.driverConfig.transporter.username,
+        pass: this.driverConfig.transporter.password,
       },
     })
 
     const sendConfig = {
-      from: this.mailConfig.from,
-      to: this.mailConfig.to,
+      from: this.driverConfig.send.from,
+      to: this.driverConfig.send.to,
       subject: title,
       html: this._getContent(title, result),
     }

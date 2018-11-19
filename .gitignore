@@ -1,5 +1,5 @@
 .DS_Store
-node_modules/
+**/node_modules/**
 /dist/
 npm-debug.log*
 yarn-debug.log*
@@ -16,6 +16,5 @@ selenium-debug.log
 *.njsproj
 *.sln
 
-static/config.js
-cache/*
-!./cache/.gitkeep
+static/config.json
+prod/static/config.json

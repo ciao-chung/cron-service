@@ -18,10 +18,22 @@ class App {
 
     for(const jobName in this.config.jobs) {
       const jobConfig = this.config.jobs[jobName]
-      const job = new CronJob(jobConfig.schedule, () => this.startJob(jobName, jobConfig))
-      job.start()
+      this.setupSchedule(jobConfig)
 
       if(jobConfig.runAtStart) this.startJob(jobName, jobConfig)
+    }
+  }
+
+  setupSchedule(jobConfig) {
+    if(!Array.isArray(jobConfig.schedule)) {
+      const job = new CronJob(jobConfig.schedule, () => this.startJob(jobName, jobConfig))
+      job.start()
+      return
+    }
+
+    for(const schedule of jobConfig.schedule) {
+      const job = new CronJob(schedule, () => this.startJob(jobName, jobConfig))
+      job.start()
     }
   }
 

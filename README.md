@@ -53,7 +53,7 @@ node app.js
 
 - name(required): String, name of job item.
 - runAtStart(optional): Boolean, job will run after service launch if this property is true (default value is false).
-- schedule(required): String, schedule rule like cron job, see more rule in [cron](https://github.com/kelektiv/node-cron).
+- schedule(required): String/Array, schedule rule like cron job(to setup multi schedule you can pass array value), see more rule in [cron](https://github.com/kelektiv/node-cron).
 - commands(required): Array, **CommandItem** array (**CommandItem** configuration see below).
 - notify(optional): Array, setup drivers which you wanna notify.
 

@@ -20,29 +20,16 @@
 **Clone project**
 
 ```bash
-git clone git@github.com:ciao-chung/cron-service.git
+yarn global add cron-service
 ```
 
-**Install node modules**
+## Start service
 
 ```bash
-cd cron-service/prod; yarn
+cron-service --config=/file-to-your/config.json
 ```
 
-**Create and setup service config**
-
-```bash
-cp static/config.example.json static/config.json
-```
-
-**Start service**
-```bash
-node app.js
-```
-
-### Configuration
-
-> See complete configuration in static/config.example.json
+## Configuration
 
 **Main**
 
@@ -84,6 +71,56 @@ node app.js
   "command": "git clone https://foobar.com.git; cd foobar",
   "description": "Clone some repo.",
   "cwd": "/home/project/"
+}
+```
+
+**Example**
+
+```json
+{
+  "jobs": {
+    "someCronJob": {
+      "name": "Some Cron Job",
+      "runAtStart": true,
+      "schedule": "*/60 * * * * *",
+      "commands": [
+        {
+          "command": "rm -rf foobar",
+          "description": "remove folder"
+        },
+        {
+          "command": "git clone git@github.com:rtyley/small-test-repo.git foobar; pwd; ls",
+          "description": "clone project"
+        },
+        {
+          "command": "cd foobar; ls",
+          "description": "go into project"
+        },
+        {
+          "command": "rm -rf foobar",
+          "description": "delete project"
+        }
+      ],
+      "notify": ["line", "email"]
+    }
+  },
+  "notifyDrivers": {
+    "line": {
+      "token": "lineApiToken"
+    },
+    "email": {
+      "transporter": {
+        "port": 587,
+        "host": "smtp.gmail.com",
+        "username": "foo@bar.com",
+        "password": "password"
+      },
+      "send": {
+        "from": "foo@bar.com",
+        "to": "target1@foobar.com,target2@foobar.com"
+      }
+    }
+  }
 }
 ```
 

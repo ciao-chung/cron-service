@@ -68035,7 +68035,7 @@ function () {
 
               case 12:
                 if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                  _context.next = 27;
+                  _context.next = 35;
                   break;
                 }
 
@@ -68045,66 +68045,78 @@ function () {
                 };
                 if (command.cwd) execConfig.cwd = command.cwd;
                 if (command.description) log("[Running] ".concat(command.description));
-                _context.next = 19;
+                result = void 0;
+                _context.prev = 18;
+                _context.next = 21;
                 return this._execAsync("".concat(command.command), execConfig);
 
-              case 19:
+              case 21:
                 result = _context.sent;
+                _context.next = 28;
+                break;
+
+              case 24:
+                _context.prev = 24;
+                _context.t0 = _context["catch"](18);
+                log(_context.t0, 'red');
+                return _context.abrupt("continue", 32);
+
+              case 28:
                 result.cwd = command.cwd;
                 result.command = command.command;
                 result.description = command.description;
                 this.result.push(result);
 
-              case 24:
+              case 32:
                 _iteratorNormalCompletion = true;
                 _context.next = 12;
                 break;
 
-              case 27:
-                _context.next = 33;
+              case 35:
+                _context.next = 41;
                 break;
 
-              case 29:
-                _context.prev = 29;
-                _context.t0 = _context["catch"](10);
+              case 37:
+                _context.prev = 37;
+                _context.t1 = _context["catch"](10);
                 _didIteratorError = true;
-                _iteratorError = _context.t0;
+                _iteratorError = _context.t1;
 
-              case 33:
-                _context.prev = 33;
-                _context.prev = 34;
+              case 41:
+                _context.prev = 41;
+                _context.prev = 42;
 
                 if (!_iteratorNormalCompletion && _iterator.return != null) {
                   _iterator.return();
                 }
 
-              case 36:
-                _context.prev = 36;
+              case 44:
+                _context.prev = 44;
 
                 if (!_didIteratorError) {
-                  _context.next = 39;
+                  _context.next = 47;
                   break;
                 }
 
                 throw _iteratorError;
 
-              case 39:
-                return _context.finish(36);
+              case 47:
+                return _context.finish(44);
 
-              case 40:
-                return _context.finish(33);
+              case 48:
+                return _context.finish(41);
 
-              case 41:
+              case 49:
                 this.notify.send(jobConfig, this.result);
                 this.result = [];
                 delete this.onProcess[jobName];
 
-              case 44:
+              case 52:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[10, 29, 33, 41], [34,, 36, 40]]);
+        }, _callee, this, [[10, 37, 41, 49], [18, 24], [42,, 44, 48]]);
       }));
 
       function execute(_x, _x2) {

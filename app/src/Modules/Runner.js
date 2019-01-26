@@ -27,7 +27,13 @@ class Runner {
       }
       if(command.cwd) execConfig.cwd = command.cwd
       if(command.description) log(`[Running] ${command.description}`)
-      let result = await this._execAsync(`${command.command}`, execConfig)
+      let result
+      try {
+        result = await this._execAsync(`${command.command}`, execConfig)
+      } catch(error) {
+        log(error, 'red')
+        continue
+      }
       result.cwd = command.cwd
       result.command = command.command
       result.description = command.description

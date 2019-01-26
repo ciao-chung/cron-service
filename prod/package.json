@@ -1,0 +1,11 @@
+{
+  "name": "cron-service",
+  "version": "1.0.0",
+  "description": "Easy to maintain multiple cron job, and auto send job execute log.",
+  "bin": {
+    "cron-service": "./index.js"
+  },
+  "repository": "https://github.com/ciao-chung/cron-service",
+  "author": "Ciao Chung <ciao0958@gmail.com>",
+  "license": "MIT"
+}

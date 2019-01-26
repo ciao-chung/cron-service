@@ -25,8 +25,16 @@ yarn global add cron-service
 
 ## Start service
 
+base
+
 ```bash
 cron-service --config=/file-to-your/config.json
+```
+
+or pm2
+
+```bash
+pm2 start cron-service --name="cron" -- --config=/file-to-your/config.json
 ```
 
 ## Configuration

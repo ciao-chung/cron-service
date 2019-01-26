@@ -1,6 +1,6 @@
 {
   "name": "cron-service",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Easy to maintain multiple cron job, and auto send job execute log.",
   "bin": {
     "cron-service": "./index.js"
